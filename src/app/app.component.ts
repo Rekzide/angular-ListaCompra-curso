@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Producto } from './modules/producto.model';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,27 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ListaCompra';
+
+  productosSeleccionado: Producto[];
+  productosComprados: Producto[];
+
+  constructor() {
+    this.productosSeleccionado = [];
+    this.productosComprados = [];
+  }
+
+  onProductoCreado($event: any) {
+    console.log($event);
+    this.productosSeleccionado.push($event);
+  }
+
+  onProductoSeleccionado($event: any){
+    const prod = this.productosSeleccionado.splice($event, 1);
+    this.productosComprados.push(prod[0]);
+  }
+  onProductoNoSeleccionado($event: any) {
+    const prod = this.productosComprados.splice($event, 1);
+    this.productosSeleccionado.push(prod[0]);
+  }
+
 }
